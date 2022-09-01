@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "helloServlet", urlPatterns="/hello")
+@WebServlet(name = "helloServlet", urlPatterns="/hello") // 서블릿 이름, url Mapping
 public class HelloServlet extends HttpServlet {
 
     /**
@@ -23,7 +23,7 @@ public class HelloServlet extends HttpServlet {
         System.out.println(username); // 쿼리 파라미터 조회
 
         response.setContentType("text/plain");
-        response.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8"); // 문자 인코딩
         response.getWriter().write("hello: " + username); // write(): http body에 들어간다.
     }
 }
