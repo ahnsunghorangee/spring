@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "helloServlet", urlPatterns="/hello")
+@WebServlet(name = "helloServlet", urlPatterns="/hello") // 서블릿 이름, URL 매핑
 public class HelloServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.service(request, response);
+//        super.service(request, response); // 이거 있으면 405 Error. 이유는 모르겠다.
 
         System.out.println("HelloServlet.service");
 
