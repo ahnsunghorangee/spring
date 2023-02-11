@@ -13,3 +13,6 @@ http 요청이 오면 WAS가 Request, Response 객체를 만들어서 Servlet에
 
 - 요청받은 헤더 정보를 볼 수 있다.
 - 운영 서버에 넣으면 성능 저하가 일어나니 개발할 때만 사용하자
+
+# HtthpServletRequest 개요
+
