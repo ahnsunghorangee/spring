@@ -10,8 +10,21 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 
 ## Dependency 의미
 
+## Library
+
+- Jackson: spring 기본 라이브러리, JSON 결과를 파싱해서 자바 객체로 변환하는 라이브러리
+
 ## Error 모음
 
 > Cause: invalid source release: 11
 
 - Project Structure -> Project JDK 버전 설정
+
+## 인텔리제이 단축키
+
+- getter and setter : alt + insert
+- override: ctrl + o
+- 줄 정리 : ctrl + alt + shift + l
+- 한 줄 삭제: ctrl + y
+- 한 줄 복사 : ctrl + d
+- 변수 선언 : ctrl + alt + v
