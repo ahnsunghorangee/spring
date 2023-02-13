@@ -17,7 +17,9 @@ import java.util.Enumeration;
 public class RequestParamServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Enumeration<String> parameterNames = request.getParameterNames(); // 참고) 요청 파라미터를 전부 꺼낼 수 있다.
+        // 참고) 요청 파라미터를 전부 꺼낼 수 있다.
+        Enumeration<String> parameterNames = request.getParameterNames();
+
 
         // 예제1) http://localhost:8080/request-param?username=hello&age=20
         System.out.println("[전체 파라미터 조회] - start");
