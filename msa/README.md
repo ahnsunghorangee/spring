@@ -16,14 +16,6 @@ Study MSA used SpringBoot
 |   second-service   |            Netflix Zuul            |                                                |
 | apigateway-service |   Spring Cloud Gateway (비동기)    | zuul-service와 같은 역할 (API Gateway, Filter) |
 
-# 프로젝트 에러
-
-1 error
-role: org.apache.maven.model.validation.ModelValidator
-roleHint: ide
-
-> File > Settings > Build, Execution, Deployment > Build Tools > Maven > Maven home path 설정
-
 # 프로젝트 실행방법
 
 > -> 강의) Service Discovery - User Service 동록
