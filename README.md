@@ -35,6 +35,7 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 - 줄 정리 : ctrl + alt + shift + l
 - 한 줄 삭제: ctrl + y
 - 한 줄 복사 : ctrl + d
+- 한 줄 옮기기 : ctrl + shift + 방향키
 - 변수 선언 : ctrl + alt + v
 - 세미클론 자동 입력: ctrl + shift + enter
 - psvm : main함수 작성
