@@ -39,6 +39,9 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 - 변수 선언 : ctrl + alt + v
 - 세미클론 자동 입력: ctrl + shift + enter
 - psvm : main함수 작성
+- ctrl + shift + T : 테스트 클래스 생성
+- 클래스 실행 : ctrl + shift + F10
+- 인터페이스에서 구현체로 이동 : ctrl + alt + B
 
 ---
 
@@ -51,3 +54,5 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 > ConcurrentHashMap
 
 - Memory 기반 소스에서 여러 Repository에서 HashMap을 사용하면 동시성 이슈가 일어날 수 있다. 이를 해결하기 위함.
+
+> Static Import
