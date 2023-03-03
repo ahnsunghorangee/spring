@@ -2,6 +2,7 @@ package com.inflearn.core;
 
 import com.inflearn.core.discount.DiscountPolicy;
 import com.inflearn.core.discount.FixDiscountPolicy;
+import com.inflearn.core.discount.RateDiscountPolicy;
 import com.inflearn.core.member.MemberService;
 import com.inflearn.core.member.MemberServiceImpl;
 import com.inflearn.core.member.MemoryMemberRepository;
@@ -21,7 +22,7 @@ public class AppConfig { // App 전체를 설정 및 구성
 
     // 위 코드 리팩토링 (중복 제거 및 역할에 따른 구현이 보이도록)
     public MemberService memberService() {
-        return new MemberServiceImpl(memberRepository());
+        return new MemberServiceImpl(memberRepository()); // 생성자를 통해 객체가 인스턴스를 주입? (= 생성자 주입)
     }
 
     private MemoryMemberRepository memberRepository() {
@@ -33,6 +34,7 @@ public class AppConfig { // App 전체를 설정 및 구성
     }
 
     public DiscountPolicy discountPolicy(){
-        return new FixDiscountPolicy();
+//        return new FixDiscountPolicy(); // OCP 성립
+        return new RateDiscountPolicy();
     }
 }
