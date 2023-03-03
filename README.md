@@ -12,6 +12,9 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 
 ## Dependency
 
+@Configuration: 설정 정보
+@Bean: Spring 컨테이너에 등록
+
 ## Library
 
 - Jackson: spring 기본 라이브러리, JSON 결과를 파싱해서 자바 객체로 변환하는 라이브러리
