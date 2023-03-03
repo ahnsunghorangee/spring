@@ -1,11 +1,22 @@
 package com.inflearn.core.member;
 
+import com.inflearn.core.AppConfig;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MemberServiceTest {
 
-    MemberService memberService = new MemberServiceImpl();
+//    MemberService memberService = new MemberServiceImpl(); // DIP 위반
+
+    // DIP 성립
+    MemberService memberService;
+
+    @BeforeEach // @Test 전에 무조건 실행
+    public void beforeEach(){
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+    }
 
     @Test
     void join() {

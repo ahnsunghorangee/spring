@@ -10,6 +10,10 @@ import com.inflearn.core.order.OrderServiceImpl;
 
 public class OrderApp {
     public static void main(String[] args) {
+//        MemberService memberService = new MemberServiceImpl(); // DIP 위반
+//        OrderService orderService = new OrderServiceImpl();
+
+        // DIP 충족
         AppConfig appConfig = new AppConfig();
         MemberService memberService = appConfig.memberService();
         OrderService orderService = appConfig.orderService();

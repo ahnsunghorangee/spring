@@ -8,14 +8,11 @@ import com.inflearn.core.member.MemberRepository;
 import com.inflearn.core.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService{
-
-
-    // DIP, OCP 위반
-//    private final MemberRepository memberRepository = new MemoryMemberRepository();
+//    private final MemberRepository memberRepository = new MemoryMemberRepository(); // DIP, OCP 위반
 //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
 //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
-    // 인터페이스에만 의존 (= DIP 성립)
+    // 인터페이스(추상화)에만 의존 (= DIP 성립)
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
