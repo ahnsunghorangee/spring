@@ -45,6 +45,7 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 - ctrl + shift + T : 테스트 클래스 생성
 - 클래스 실행 : ctrl + shift + F10
 - 인터페이스에서 구현체로 이동 : ctrl + alt + B
+- Static Class Import : alt + enter
 
 ---
 
