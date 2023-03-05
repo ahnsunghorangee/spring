@@ -53,6 +53,13 @@
 
 # 스프링 컨테이너와 빈
 
+# BeanFactory와 ApplicationContext
+
+BeanFacotry
+
+- 스프링 컨테이너 최상위 인터페이스
+- 스프링 빈을 관리 및 조회
+
 ### 스프링 컨테이너
 
 ---
