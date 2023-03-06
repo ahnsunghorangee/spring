@@ -88,6 +88,8 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 - 클래스 실행 : ctrl + shift + F10
 - 인터페이스에서 구현체로 이동 : ctrl + alt + B
 - Static Class Import : alt + enter
+- 클래스 사용하는 위치 : ctrl + B
+- 최근 파일 : ctrl + E
 
 ---
 

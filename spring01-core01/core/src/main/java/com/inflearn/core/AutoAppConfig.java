@@ -1,5 +1,8 @@
 package com.inflearn.core;
 
+import com.inflearn.core.member.MemberRepository;
+import com.inflearn.core.member.MemoryMemberRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -14,4 +17,9 @@ import org.springframework.context.annotation.FilterType;
 )
 public class AutoAppConfig {
 
+    // 같은 빈 이름으로 등록(수동 등록 vs 자동 등록) 시 충돌 > spring: 수동 우선, springboot: 충돌 에러 (application.properties에서 Override 설정 가능)
+    @Bean(name = "memoryMemberRepository")
+    public MemberRepository memberRepository(){
+        return new MemoryMemberRepository();
+    }
 }
