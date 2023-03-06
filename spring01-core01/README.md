@@ -55,12 +55,14 @@
 
 # BeanFactory와 ApplicationContext
 
-BeanFacotry
+### BeanFacotry
 
 - 스프링 컨테이너 최상위 인터페이스
 - 스프링 빈을 관리 및 조회
 
 ### 스프링 컨테이너
+
+### 싱글톤 컨테이너
 
 ---
 
