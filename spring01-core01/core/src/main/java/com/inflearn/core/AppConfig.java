@@ -24,18 +24,24 @@ public class AppConfig { // App 전체를 설정 및 구성
     */
 
     // 위 코드 리팩토링 (중복 제거 및 역할에 따른 구현이 보이도록)
+    // @Bean memberService -> new MemoryMemberRepository()
+    // @Bean orderService -> new MemoryMemberRepository()
+    // 여러번 호출되는데 같은 인스턴스인가?
     @Bean
     public MemberService memberService() {
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository()); // 생성자를 통해 객체가 인스턴스를 주입? (= 생성자 주입)
     }
 
     @Bean
     public MemoryMemberRepository memberRepository() {
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
     @Bean
     public OrderService orderService(){
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 

@@ -12,8 +12,18 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 
 ## Dependency
 
-@Configuration: 설정 정보
-@Bean: Spring 컨테이너에 등록
+## Annotation
+
+@Configuration
+
+- 설정 정보
+- 스프링 컨테이너는 싱글톤 레지스터이다. CGLIB 바이트코드 조작 라이브러리를 사용해 싱글톤을 보장한다.
+- @Bean이 붙은 메서드를 스프링 빈으로 등록한다.
+
+@Bean
+
+- Spring 컨테이너에 등록
+- @Bean만 사용해도 스프링 빈으로 등록되지만 싱글톤은 보장되지 않는다. (@Configuration 필요)
 
 ## Library
 
