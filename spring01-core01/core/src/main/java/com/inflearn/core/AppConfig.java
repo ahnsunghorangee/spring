@@ -24,9 +24,6 @@ public class AppConfig { // App 전체를 설정 및 구성
     */
 
     // 위 코드 리팩토링 (중복 제거 및 역할에 따른 구현이 보이도록)
-    // @Bean memberService -> new MemoryMemberRepository()
-    // @Bean orderService -> new MemoryMemberRepository()
-    // 여러번 호출되는데 같은 인스턴스인가?
     @Bean
     public MemberService memberService() {
         System.out.println("call AppConfig.memberService");

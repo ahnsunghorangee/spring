@@ -25,6 +25,18 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 - Spring 컨테이너에 등록
 - @Bean만 사용해도 스프링 빈으로 등록되지만 싱글톤은 보장되지 않는다. (@Configuration 필요)
 
+@ComponentScan
+
+- @Component 어노테이션이 붙은 클래스를 자동으로 스프링 빈으로 등록한다.
+
+@Component
+
+- @ComponentScan으로 인해 @Component가 붙은 클래스를 빈으로 자동 등록된다.
+
+@Autowired
+
+- 생성자에 붙여주면 타입에 맞는 클래스를 찾아와서 의존관계를 자동으로 주입해준다.
+
 ## Library
 
 - Jackson: spring 기본 라이브러리, JSON 결과를 파싱해서 자바 객체로 변환하는 라이브러리
