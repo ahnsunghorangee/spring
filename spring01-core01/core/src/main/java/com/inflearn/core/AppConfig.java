@@ -39,7 +39,8 @@ public class AppConfig { // App 전체를 설정 및 구성
     @Bean
     public OrderService orderService(){
         System.out.println("call AppConfig.orderService");
-        return new OrderServiceImpl(memberRepository(), discountPolicy());
+//        return new OrderServiceImpl(memberRepository(), discountPolicy());
+        return null;
     }
 
     @Bean
