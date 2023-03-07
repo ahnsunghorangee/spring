@@ -6,10 +6,12 @@ import com.inflearn.core.discount.RateDiscountPolicy;
 import com.inflearn.core.member.Member;
 import com.inflearn.core.member.MemberRepository;
 import com.inflearn.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor // lombok: 필수값(final 붙은 것)을 가지고 생성자를 만들어준다.
 public class OrderServiceImpl implements OrderService{
 //    private final MemberRepository memberRepository = new MemoryMemberRepository(); // DIP, OCP 위반
 //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
@@ -33,12 +35,15 @@ public class OrderServiceImpl implements OrderService{
     }
     */
 
-    @Autowired
+    /*
+    // 롬복 적용 전
+    @Autowired // 생성자 1개일 때는 생략 가능
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         System.out.println("OrderServiceImpl.OrderServiceImpl");
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
+     */
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {

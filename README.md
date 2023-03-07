@@ -57,6 +57,10 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 
 - 스프링 설정 정보로 인식하고, 스프링 빈이 싱글톤을 유지하도록 추가 처리를 한다.
 
+@RequiredArgsConstructor (ctrl + F12)
+
+- lombok: 필수값(final 붙은 것)을 가지고 생성자를 만들어준다.
+
 ## Library
 
 - Jackson: spring 기본 라이브러리, JSON 결과를 파싱해서 자바 객체로 변환하는 라이브러리
