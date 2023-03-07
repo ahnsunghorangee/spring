@@ -8,10 +8,11 @@ import com.inflearn.core.member.MemberRepository;
 import com.inflearn.core.member.MemoryMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor // lombok: 필수값(final 붙은 것)을 가지고 생성자를 만들어준다.
+//@RequiredArgsConstructor // lombok: 필수값(final 붙은 것)을 가지고 생성자를 만들어준다.
 public class OrderServiceImpl implements OrderService{
 //    private final MemberRepository memberRepository = new MemoryMemberRepository(); // DIP, OCP 위반
 //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
@@ -35,15 +36,18 @@ public class OrderServiceImpl implements OrderService{
     }
     */
 
-    /*
+
     // 롬복 적용 전
     @Autowired // 생성자 1개일 때는 생략 가능
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository,
+                            // DiscountPolicy rateDiscountPolicy, // @Autowired 필드명 매칭
+//                            @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy,
+                            DiscountPolicy discountPolicy) {
         System.out.println("OrderServiceImpl.OrderServiceImpl");
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
-     */
+
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
