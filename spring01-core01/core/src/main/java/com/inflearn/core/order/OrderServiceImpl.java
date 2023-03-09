@@ -1,5 +1,6 @@
 package com.inflearn.core.order;
 
+import com.inflearn.core.annotation.MainDiscountPolicy;
 import com.inflearn.core.discount.DiscountPolicy;
 import com.inflearn.core.discount.FixDiscountPolicy;
 import com.inflearn.core.discount.RateDiscountPolicy;
@@ -42,7 +43,7 @@ public class OrderServiceImpl implements OrderService{
     public OrderServiceImpl(MemberRepository memberRepository,
                             // DiscountPolicy rateDiscountPolicy, // @Autowired 필드명 매칭
 //                            @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy,
-                            DiscountPolicy discountPolicy) {
+                            @MainDiscountPolicy DiscountPolicy discountPolicy) {
         System.out.println("OrderServiceImpl.OrderServiceImpl");
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
