@@ -3,6 +3,9 @@ package com.inflearn.core.lifecycle;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 public class NetworkClient {
 //        implements InitializingBean, DisposableBean {
     private String url;
@@ -49,12 +52,14 @@ public class NetworkClient {
     */
 
     // [빈 등록 초기화, 소멸 메서드]
+    @PostConstruct
     public void init() { // 의존관계 주입이 끝나면 호출된다.
         System.out.println("NetworkClient.afterPropertiesSet");
         connect();
         call("초기화 연결 메시지");
     }
 
+    @PreDestroy
     public void close() { // 빈 종료될 때 호출
         System.out.println("NetworkClient.destroy");
         disconnect();
