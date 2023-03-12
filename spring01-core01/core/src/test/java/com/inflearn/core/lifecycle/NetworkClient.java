@@ -1,6 +1,9 @@
 package com.inflearn.core.lifecycle;
 
-public class NetworkClient {
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
+public class NetworkClient implements InitializingBean, DisposableBean {
     private String url;
 
     public NetworkClient() {
@@ -25,5 +28,19 @@ public class NetworkClient {
     // 서비스 종료 시 호출
     public void disconnect() {
         System.out.println("close = " + url);
+    }
+
+    // 1. 싱글톤으로 컨테이너에 빈이 생성, 의존관계 주입된다.
+    @Override // implements InitializingBean
+    public void afterPropertiesSet() throws Exception { // 2. 의존관계 주입이 끝나면 호출된다.
+        System.out.println("NetworkClient.afterPropertiesSet");
+        connect();
+        call("초기화 연결 메시지");
+    }
+
+    @Override // implements DisposableBean
+    public void destroy() throws Exception { // 3. 빈 종료될 때 호출
+        System.out.println("NetworkClient.destroy");
+        disconnect();
     }
 }
