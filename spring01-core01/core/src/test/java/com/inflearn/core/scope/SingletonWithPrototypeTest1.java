@@ -1,12 +1,15 @@
 package com.inflearn.core.scope;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,11 +38,13 @@ public class SingletonWithPrototypeTest1 {
 
         ClientBean clientBean2 = ac.getBean(ClientBean.class);
         int count2 = clientBean2.logic();
-        assertThat(count2).isEqualTo(2);
+        assertThat(count2).isEqualTo(1);
     }
 
     @Scope("singleton")
     static class ClientBean {
+        /*
+        // 싱글톤에서 프로토타입 주입받기
         private final PrototypeBean prototypeBean; // 생성 시점에 주입
 
         @Autowired
@@ -48,6 +53,32 @@ public class SingletonWithPrototypeTest1 {
         }
 
         public int logic() {
+            prototypeBean.addCount();
+            int count = prototypeBean.getCount();
+            return count;
+        }
+         */
+
+        /*
+
+        // 방법1) ObjectFactory, ObjectProvider
+        @Autowired
+        private ObjectProvider<PrototypeBean> prototypeBeanProvider; // ObjectProvider: 스프링이 자동으로 의존성 주입해준다.
+
+        public int logic() {
+            PrototypeBean prototypeBean = prototypeBeanProvider.getObject(); // getObject() 호출할 때, 스프링 컨테이너에서 프로토타입을 찾아서 반환해준다.
+            prototypeBean.addCount();
+            int count = prototypeBean.getCount();
+            return count;
+        }
+        */
+
+        // 방법2) JSR-330 Provider
+        @Autowired
+        private Provider<PrototypeBean> prototypeBeanProvider;
+
+        public int logic() {
+            PrototypeBean prototypeBean = prototypeBeanProvider.get(); // 항상 새로운 프로토타입 빈이 생성
             prototypeBean.addCount();
             int count = prototypeBean.getCount();
             return count;
