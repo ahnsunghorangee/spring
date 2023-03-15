@@ -69,3 +69,40 @@
 - URI는 URL, URN 모두를 포함
 - URL (Uniform Resource Locator): 리소스가 있는 위치를 지정
 - URN (Uniform Resource Name): 리소스에 이름을 부여
+
+# HTTP (HyperText Transfer Protocol)
+
+- HTTP 메시지에 모든 것을 전송 (HTML, Text, Image, JSON 등)
+- HTTP/1.1(RFC7230~7235): 우리가 사용하는 버전 (TCP 기반)
+- 클라이언트-서버 구조 (Request-Response 구조)
+- **무상태(Stateless) 프로토콜** (<-> Stateful, 상태 유지)
+  - 서버가 클라이언트의 상태를 보존하지 않는다.
+  - 장점
+    - 서버 확장성 높음(무한한 서버 증설 가능) (스케일 아웃: 수평 확장 유리)
+  - 단점
+    - 클라이언트가 추가 데이터 전송
+  - 상태 유지를 사용하는 경우
+    - 로그인한 사용자의 경우 로그인 했다는 상태를 서버에 유지
+    - 일반적으로 브라우저 쿠키와 서버 세션 등을 사용해서 상태 유지
+    - 상태 유지는 최소한만 사용
+- **비연결성(connectionless)**
+  - 서버와 클라이언트는 연결을 유지하지 않는다. (최소한의 자원 유지)
+    1. TCP/IP 연결
+    2. 클라이언트: 요청
+    3. 서버: 응답
+    4. TCP/IP 연결 종료
+  - 단점
+    - TCP/IP 연결을 매번 새로 맺어야 함 (3 way handshake 시간 추가)
+    - HTML뿐 아니라 JS, CSS, 이미지 등 함께 다운로드 해야함.
+  - 지속 연결(Persistent Connections)로 단점 해결
+- HTTP 메시지 구조
+  - start-line, 시작 라인
+    - Request: HTTP 메서드(GET, POST 등), 요청 대상, HTTP Version
+    - Response: HTTP 버전, HTTP 상태 코드(200, 400, 500 등)
+  - header, 헤더
+    - HTTP 전송에 필요한 모든 부가정보
+  - empty line, 공백 라인 (CRLF)
+  - message body
+    - 실제 전송할 데이터
+    - HTML, 이미지, 영상 등 byte로 표현할 수 있는 모든 데이터 전송 가능
+- 단순함, 확장가능
