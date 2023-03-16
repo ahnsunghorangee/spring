@@ -159,4 +159,48 @@
     - Response가 없을 때 클라이언트가 다시 요청해도 되는지 판단 근거
 
 - 캐시가능(Cacheable Methods)
+
   - 실제로는 GET, HEAD 정도만 가능하다. POST, PATCH는 캐시 키를 고려해야하는데 구현이 쉽지 않다.
+
+# HTTP 메서드 활용
+
+- 클라이언트에서 서버로 데이터 전송 방법
+
+  - 방법1) 쿼리 파라미터
+
+    - GET, 정렬 필터(검색어) 등
+
+  - 방법2) 메시지 바디
+    - POST, PUT, PATCH, 회원 가입, 상품 주문, 리소스 등록, 리소스 변경 등
+
+- 클라이언트에서 서버로 데이터 전송 상황
+
+  - 상황1) 정적 데이터 조회 (이미지, 텍스트 등)
+
+    - GET
+    - 예) /static/star.jpg
+
+  - 상황2) 동적 데이터 조회 (검색, 정렬 필터 등)
+    - GET
+    - 예) /search?q=hello&hl=ko
+
+  ```html
+  <form action="/save" method="post">
+    <input type="text" name="username" />
+    <input type="text" name="age" />
+  </form>
+  ```
+
+  - 상황3) HTML Form을 통한 데이터 전송
+
+    - POST
+    - GET도 사용가능 하지만 X (사용할 경우 URI에 자동으로 쿼리 스트링으로 넣어준다.)
+    - Content-Type: application/x-www-form-urlencoded
+      - default로 사용
+      - Form 데이터를 메시지 바디에 넣어준다.
+    - Content-Type: multipart/form-data
+      - 바이너리 데이터를 전송할 때 사용
+
+  - 상황4) HTTP API를 통한 데이터 전송
+    - Content-Type: application/json을 주로 사용 (사실상 표준)
+    - TEXT, XML, JSON 등
