@@ -267,3 +267,101 @@
   - 503 Service Unavailable: 서비스 이용 불가
 - 4xx vx 5xx의 차이
   > 4xx는 복구 불가능(요청 자체에 문제가 있어서 요청을 수정해서 보내야 하고), 5xx는 클라이언트가 똑같은 요청을 보냈어도 성공할 가능성이 있다(서버가 내려가 있을 수도 있어서).
+
+# HTTP Header
+
+용도
+
+- HTTP 전송에 필요한 모든 부가정보
+
+Representation(표현) = Representation Metadata(표현 메타데이터) + Representation Data(표현 데이터)
+
+HTTP Body
+
+- 메시지 본문을 통해 표현 데이터 전달
+- 메시지 본문 = 페이로드(payload)
+- 표현(표현 헤더 + 표현 데이터)은 요청이나 응답에서 전달할 실제 데이터
+- 표현 헤더는 표현 데이터를 해석할 수 있는 정보 제공
+
+표현(Representation) 헤더
+
+- Content-Type: 표현 데이터의 형식
+  - 미디어 타입, 문자 인코딩 등
+- Content-Encoding: 표현 데이터의 압축 방식
+  - 표현 데이터를 압축하기 위해 사용
+  - 데이터를 전달하는 곳에서 압축 후 인코딩 헤더 추가
+  - 데이터를 읽는 쪽에서 인코딩 헤더의 정보로 압축 해제
+- Content-Language: 표현 데이터의 자연 언어
+  - 표현 데이터의 자연 언어를 표현
+- Content-Length: 표현 데이터의 길이
+
+  - 바이트 단위
+
+- 표현 헤더는 전송, 응답 모두 사용
+
+협상(콘텐츠 네고시에이션) 헤더
+
+> 협상 헤더란? 클라이언트가 선호하는 표현 요청
+
+- Accept: 클라이언트가 선호하는 미디어 타입 전달
+- Accept-Charset: 클라이언트가 선호하는 문자 인코딩
+- Accept-Encoding: 클라이언트가 선호하는 압축 인코딩
+- Accept-Language: 클라이언트가 선호하는 자연 언어
+
+- 협상 헤더는 요청시에만 사용
+
+- 협상과 우선순위 (Quality Values(q))
+
+  - 0~1, 클수록 높은 우선순위
+  - 생략하면 1
+  - 예) Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+
+    1. ko-KR;q=1 (q생략)
+    2. ko;q=0.9
+    3. en-US;q=0.8
+    4. en:q=0.7
+
+  - 구체적인 것이 우선한다.
+  - 예) Accept: text/\*, text/plain, text/plain;format=flowed, \*/\*
+    1. text/plain;format=flowed
+    2. text/plain
+    3. text/\*
+    4. \*/\*
+
+전송 방식
+
+- Content-Length, 단순 전송: Content-Length 포함해서 전달
+- Content-Encoding, 압축 전송: Content-Encoding 포함해서 전달
+- Transfer-Encoding, 분할 전송: Transfer-Encoding: chunked (단, Content-Length는 보내면 안된다. 분할해서 총 길이를 몰라서)
+- Range, Content-Range, 범위 전송: Content-Range 포함해서 전달
+
+일반 정보
+
+- From: 유저 에이전트의 이메일 정보
+- Referer: 이전 웹 페이지 주소
+- User-Agent: 유저 에이전트 애플리케이션 정보 (웹 브라우저 정보 등)
+- Server: 요청을 처리하는 ORIGIN 서버(Proxy서버 말고 나의 요청을 실제로 응답해주는 서버)의 소프트웨어 정보
+- Date: 메시지가 생성된 날짜
+
+특별한 정보
+
+- HOST: 요청한 호스트 정보(도메인)
+- Location: 페이지 리다이렉션
+- Allow: 허용 가능한 HTTP 메서드
+- Retry-After: 유저 에이전트가 다음 요청을 하기까지 기다려야 하는 시간
+
+인증
+
+- Authorization: 클라이언트 인증 정보를 서버에 전달
+- WWW-Authenticate: 리소스 접근 시 필요한 인증 방법 정의
+
+쿠키
+
+- Set-Cookie: 서버에서 클라이언트로 쿠키 전달(응답)
+  - 브라우저에는 **쿠키 저장소**가 있는데 그곳에 저장한다.
+  - 브라우저는 서버에 요청을 보낼 때 쿠키를 뒤져서 쿠키를 함께 서버로 보낸다. (모든 요청에 쿠키 정보 자동 포함)
+- Cookie: 클라이언트가 서버에서 받은 쿠키를 저장하고, HTTP 요청 시 서버로 전달
+
+  - HTTP는 무상태(Statelee) 프로토콜로 클라이언트와 서버가 요청과 응답을 주고 받으면 연결이 끊어진다. 클라이언트가 다시 요청하면 서버는 이전 요청을 기억하지 못한다.
+
+- 쿠키는 생명주기, 사용할 도메인(하위 도메인), 경로(하위 경로), 보안 유무를 판별하여 쿠키 사용 범위를 설정할 수 있다.
