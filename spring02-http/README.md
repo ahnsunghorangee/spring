@@ -365,3 +365,59 @@ HTTP Body
   - HTTP는 무상태(Statelee) 프로토콜로 클라이언트와 서버가 요청과 응답을 주고 받으면 연결이 끊어진다. 클라이언트가 다시 요청하면 서버는 이전 요청을 기억하지 못한다.
 
 - 쿠키는 생명주기, 사용할 도메인(하위 도메인), 경로(하위 경로), 보안 유무를 판별하여 쿠키 사용 범위를 설정할 수 있다.
+
+캐시
+
+- 장점
+
+  - 캐시 덕분에 캐시 가능 시간동안 네트워크를 사용하지 않아도 된다.
+  - 비싼 네트워크 사용량을 줄일 수 있다.
+  - 브라우저 로딩 속도가 매우 빠르다.
+
+- cache-control(캐시가 유효한 시간)을 설정해 놓으면 해당 시간만큼 데이터가 '브라우저 캐시'에 저장된다. (시간이 초과되면 다시 요청하고 응답을 받고 브라우저 캐시에 데이터를 덮어씌운다.)
+
+캐시 헤더
+
+- Cache-Control: max-age: 캐시 유효 시간, 초 단위
+- Cache-Control: no-cache: 데이터는 캐시해도 되지만, 항상 원(origin) 서버에 검증하고 사용
+- Cache-Control: no-store: 데이터에 민감한 정보가 있으므로 저장하면 안됨(메모리에서 사용하고 최대한 빨리 삭제)
+
+검증 헤더
+
+- 캐시 데이터와 서버 데이터가 같은지 검증하는 데이터
+- Last-Modified, ETag(Entity Tag)
+
+조건부 요청 헤더
+
+- 검증 헤더로 조건에 따른 분기
+- If-Modified-Since, If-UnModified-Since: Last-Modified 값 사용
+- If-None-Match, If-Match: ETag 값 사용
+- 조건이 만족하면 200 OK (= 데이터 변경)
+- 조건이 만족하지 않으면 304 Not Modified (= 데이터 미변경)
+
+캐시가 만료되었을 때, 두 가지 상황
+
+1. 서버에서 기존 데이터를 변경하는 경우
+2. 서버에서 기존 데이터를 변경하지 않는 경우
+
+- Last-Modified, If-Modified-Since를 사용하는 경우
+
+  - Last-Modified(= 데이터가 마지막에 수정된 시간)도 브라우저 캐시에 함께 저장해놓고 캐시 시간이 만료되어 클라이언트에서 다시 요청(if-modified0since)할 때, 서버에서 Last-Modified를 보고 데이터를 비교해서 변경사항이 없으면 304 Not Modified로 HTTP Body 없이 응답을 보낸다.
+
+- ETag, If-None-Match를 사용하는 경우
+  - 최초 데이터를 서버로부터 받을 때 브라우저 캐시에 ETag도 합께 받는다. 그 후 클라이언트에서 캐시 시간이 만료되어 데이터를 요청할 때 If-None-Match에 ETag 데이터를 보낸다. 데이터가 변경이 없으면 304 Not Modified를 받고 데이터 변경이 있으면 200 OK와 함께 데이터를 다시 받는다.
+  - 캐시 제어 로직을 서버에서 완전히 관리한다.
+
+프록시 캐시
+
+- 웹 브라우저(private cache)에서 원(origin) 서버에 직접 접근하지 않고 프록시 캐시 서버(public cache)를 거치도록 한다.
+
+  - Cache-Control: public: 응답이 public 캐시에 저장되어도 됨
+  - Cache-Control:private: 응답이 해당 사용자만을 위한 것임, private 캐시에 저장해야 함(기본값)
+  - Cache-Control: s-maxage: 프록시 캐시에만 적용되는 max-age
+
+캐시 무효화
+
+- Cache-Control: no-cache, no-store, must-revalidate
+- Pragma: no-cache
+- 전부를 넣어줘야 캐시로 안 남는다. (요즘은 웹 브라우저가 GET요청이면 자동으로 캐시로 보관한다.)
