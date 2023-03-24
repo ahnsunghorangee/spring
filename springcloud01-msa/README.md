@@ -79,6 +79,8 @@ or
 
 역할: Spring Cloud에서의 MSA간 통신
 
+- SpringBoot version: 2.3.x 하위 버전에서만 가능
+
 1. RestTemplate
 2. Feign Client (인터페이스)
 
@@ -97,7 +99,7 @@ or
 
 역할: Zuul 대신 사용 (비동기 o)
 
-apigateway-service를 실행하면 Netty라는 비동기 내장서버가 작동한다. (이전에는 톰캣)
+apigateway-service를 실행하면 Netty라는 비동기 내장서버가 작동한다. (이전에는 tomcat)
 
 Zuul과 다른점
 
