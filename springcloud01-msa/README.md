@@ -163,3 +163,9 @@ spring:
             - AddRequestHeader=second-request, second-request-header2
             - AddResponseHeader=second-response, second-response-header2
 ```
+
+Custom Filter
+
+용도
+
+- 사용자 정의로 필터 로그, 인증, locale 바꾸기 등을 적용할 때 사용
