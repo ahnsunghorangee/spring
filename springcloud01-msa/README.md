@@ -107,3 +107,51 @@ Zuul과 다른점
 | :------------------------------------------ | :-------------------------------- | :----------: | :----------------: |
 | http://localhost:8081/first-service/welcome | @RequestMapping("/")              |      o       |         x          |
 | http://localhost:8081/first-service/welcome | @RequestMapping("/first-service") |      x       |         o          |
+
+Routing 처리하는 방법 2가지
+
+방법1) Property (application.yml)
+
+```yml
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: first-service
+          uri: http://localhost:8081/ # 어디로 이동(forwarding)되는지
+          predicates: # 조건절 (사용자 요청이 들어오면 위의 uri로 보낸다)
+            - Path=/first-service/**
+        - id: second-service
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/second-service/**
+```
+
+방법2) Java (apigatewayservice/config/FilterConfig.java)
+
+```java
+@Configuration
+public class FilterConfig {
+
+    @Bean
+    public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) { // applicatio.yml을 Java로 풀이한 것 (같은 역할)
+        return builder.routes()
+                .route(r -> r.path("/first-service/**") // path가 호출되면
+                        .filters(f -> f.addRequestHeader("first-request", "first-request-header") // request header에 적용
+                                .addResponseHeader("first-response", "first-response-header") // response header에 적용
+                        ) // filter 적용 후
+                        .uri("http://localhost:8081") // uri로 이동한다.
+                )
+                .route(r -> r.path("/second-service/**")
+                        .filters(f -> f.addRequestHeader("second-request", "second-request-header")
+                                .addResponseHeader("second-response", "second-response-header")
+                        )
+                        .uri("http://localhost:8082")
+                )
+                .build(); // route에 필요한 내용을 메모리에 반영
+    }
+}
+
+```
