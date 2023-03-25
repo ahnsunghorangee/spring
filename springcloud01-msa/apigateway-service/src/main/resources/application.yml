@@ -37,6 +37,11 @@ spring:
           filters:
 #            - AddRequestHeader=second-request, second-request-header2
 #            - AddResponseHeader=second-response, second-response-header2
-            - CustomFilter
+            - name: CustomFilter
+            - name: LoggingFilter # LoggingFilter.java, args를 주기위해서는 name 옵션을 써줘야한다.
+              args:
+                baseMessage: Hi, there.
+                preLogger: true
+                postLogger: true
 
 

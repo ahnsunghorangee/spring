@@ -221,3 +221,37 @@ spring:
           filters:
             - CustomFilter
 ```
+
+## Logging Filter
+
+```yml
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
+      routes:
+        - id: first-service
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/first-service/**
+          filters:
+            - CustomFilter
+        - id: second-service
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/second-service/**
+          filters:
+            - name: CustomFilter
+            - name: LoggingFilter # LoggingFilter.java, args를 주기위해서는 name 옵션을 써줘야한다.
+              args:
+                baseMessage: Hi, there.
+                preLogger: true
+                postLogger: true
+```
