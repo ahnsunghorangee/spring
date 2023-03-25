@@ -108,28 +108,9 @@ Zuul과 다른점
 | http://localhost:8081/first-service/welcome | @RequestMapping("/")              |      o       |         x          |
 | http://localhost:8081/first-service/welcome | @RequestMapping("/first-service") |      x       |         o          |
 
-Routing 처리하는 방법 2가지
+Routing 및 Filter 처리하는 방법 2가지
 
-방법1) Property (application.yml)
-
-```yml
-spring:
-  application:
-    name: apigateway-service
-  cloud:
-    gateway:
-      routes:
-        - id: first-service
-          uri: http://localhost:8081/ # 어디로 이동(forwarding)되는지
-          predicates: # 조건절 (사용자 요청이 들어오면 위의 uri로 보낸다)
-            - Path=/first-service/**
-        - id: second-service
-          uri: http://localhost:8082/
-          predicates:
-            - Path=/second-service/**
-```
-
-방법2) Java (apigatewayservice/config/FilterConfig.java)
+방법1) Java (apigatewayservice/config/FilterConfig.java)
 
 ```java
 @Configuration
@@ -154,4 +135,31 @@ public class FilterConfig {
     }
 }
 
+```
+
+방법2) Property (application.yml)
+
+```yml
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: first-service
+          uri: http://localhost:8081/ # 어디로 이동(forwarding)되는지
+          predicates: # 조건절 (사용자 요청이 들어오면 위의 uri로 보낸다)
+            - Path=/first-service/**
+          filters:
+            - AddRequestHeader=first-request, first-request-header2
+            - AddResponseHeader=first-response, first-response-header2
+        - id: second-service
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/second-service/**
+            # 사용자가 요청을 하면 마이크로서비스에는 http://localhost:8082/second-service/** 식으로 요청이 된다.
+            # 그래서 second-service 프로젝트에서 @RequestMapping("/second-service")를 추가해주어야 한다.
+          filters:
+            - AddRequestHeader=second-request, second-request-header2
+            - AddResponseHeader=second-response, second-response-header2
 ```
