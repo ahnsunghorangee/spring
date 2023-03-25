@@ -108,7 +108,7 @@ Zuul과 다른점
 | http://localhost:8081/first-service/welcome | @RequestMapping("/")              |      o       |         x          |
 | http://localhost:8081/first-service/welcome | @RequestMapping("/first-service") |      x       |         o          |
 
-Routing 및 Filter 처리하는 방법 2가지
+## Routing 및 Filter 처리하는 방법 2가지
 
 방법1) Java (apigatewayservice/config/FilterConfig.java)
 
@@ -164,8 +164,60 @@ spring:
             - AddResponseHeader=second-response, second-response-header2
 ```
 
-Custom Filter
-
-용도
+## Custom Filter
 
 - 사용자 정의로 필터 로그, 인증, locale 바꾸기 등을 적용할 때 사용
+
+- Custom Filter는 Route 각각에게 지정한다.
+
+```yml
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: first-service
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/first-service/**
+          filters:
+            - CustomFilter
+        - id: second-service
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/second-service/**
+          filters:
+            - CustomFilter
+```
+
+## Global Filter
+
+- 공통 필터
+
+```yml
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter # GlobalFilter.java
+          args:
+            baseMessage: Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
+      routes:
+        - id: first-service
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/first-service/**
+          filters:
+            - CustomFilter
+        - id: second-service
+          uri: http://localhost:8082/
+          predicates:
+            - Path=/second-service/**
+          filters:
+            - CustomFilter
+```
