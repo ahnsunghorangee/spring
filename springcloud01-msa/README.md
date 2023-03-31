@@ -43,6 +43,9 @@ or
 
 > 1. mvn clean (빌드파일 삭제)
 > 2. mvn compile package (타겟 폴더, 스냅샷 생성)
+
+> 1~2번을 한번에 하는 방법으로 mvn clean compile package도 가능
+
 > 3. java -jar -Dserver.port=9004 ./target/user-service-0.0.1-SNAPSHOT.jar
 
 방법5) **랜덤포트**
@@ -255,3 +258,61 @@ spring:
                 preLogger: true
                 postLogger: true
 ```
+
+## Load Balancer
+
+```yml
+spring:
+  application:
+    name: apigateway-service
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway Global Filter
+            preLogger: true
+            postLogger: true
+      routes:
+        - id: first-service
+          uri: lb://MY-FIRST-SERVICE
+          predicates:
+            - Path=/first-service/**
+          filters:
+            - CustomFilter
+        - id: second-service
+#          uri: http://localhost:8082/
+          uri: lb://MY-SECOND-SERVICE # Discovery Server에 등록한 Application으로 Forwarding 시켜준다.
+          predicates:
+            - Path=/second-service/**
+          filters:second-response-header2
+            - name: CustomFilter
+            - name: LoggingFilter
+              args:
+                baseMessage: Hi, there.
+                preLogger: true
+                postLogger: true
+```
+
+## MicroService에도 Random Port 적용
+
+```yml
+server:
+  port: 0
+
+spring:
+  application:
+    name: my-first-service
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-uri:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    # 랜덤포트를 0으로 주면 유레카 서버(localhost:8761)에 인스턴스가 하나밖에 표시가 안되어 (인스턴스를 여러개 만들었는데도) 인스턴스의 ID를 줘서 여러개가 표시되도록 해준다.
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+```
+
+- Apigateway-Service에서 uri로 MicroService를 등록할 때 포트를 모르는 경우가 많으니 (+인스턴스를 계속 만들 수 있으니) MicroService를 랜덤포트로 적용하고 LB를 이용해 Application name으로 접근하도록 한다.
