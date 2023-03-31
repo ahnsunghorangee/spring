@@ -34,6 +34,7 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 
 - @ComponentScan으로 인해 @Component가 붙은 클래스를 빈으로 자동 등록된다.
 - 빈 이름 직접 지정 가능 (default는 클래스 맨 앞글자만 소문자)
+- Controller/Service/Repository 등 아직 안 정해졌을 때 사용해도 됨
 
 @Autowired
 
@@ -60,6 +61,26 @@ war: application 구조가 web형태로 바뀌어 내장 서버가 없고 외장
 @RequiredArgsConstructor (ctrl + F12)
 
 - lombok: 필수값(final 붙은 것)을 가지고 생성자를 만들어준다.
+
+@AllArgsConstructor
+
+- lombok: arg 다 가진 생성자를 만들어줌
+
+@NoArgsConstructor
+
+- lombok: 아무 args가 없는 default 생성자를 만들어줌
+
+@Data
+
+- lombok: Getter, Setter 만들어줌
+
+@Value("${})
+
+- application.yml에 있는 값을 불러옴
+
+@EnableEurekaServer
+
+@EnableDiscoveryClient
 
 ## Library
 

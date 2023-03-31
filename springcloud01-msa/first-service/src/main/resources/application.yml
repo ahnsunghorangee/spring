@@ -12,5 +12,5 @@ eureka:
     service-uri:
       defaultZone: http://localhost:8761/eureka
   instance:
-    # 랜덤포트를 0으로 주면 유레카 서버(localhost:8761)에 인스턴스가 하나밖에 표시가 안되어 (인스턴스를 여러개 만들었는데도) 인스턴스의 ID를 줘서 여러개가 표시되도록 해준다.
+    # 랜덤포트를 0으로 주면 유레카 Dashboard(localhost:8761)에 인스턴스가 하나밖에 표시가 안되어 (인스턴스를 여러개 만들었는데도) 인스턴스의 ID를 줘서 여러개가 표시되도록 해준다.
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

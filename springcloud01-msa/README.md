@@ -311,8 +311,49 @@ eureka:
     service-uri:
       defaultZone: http://localhost:8761/eureka
   instance:
-    # 랜덤포트를 0으로 주면 유레카 서버(localhost:8761)에 인스턴스가 하나밖에 표시가 안되어 (인스턴스를 여러개 만들었는데도) 인스턴스의 ID를 줘서 여러개가 표시되도록 해준다.
+    # 랜덤포트를 0으로 주면 유레카 Dashboard(localhost:8761)에 인스턴스가 하나밖에 표시가 안되어 (인스턴스를 여러개 만들었는데도) 인스턴스의 ID를 줘서 여러개가 표시되도록 해준다.
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 ```
 
 - Apigateway-Service에서 uri로 MicroService를 등록할 때 포트를 모르는 경우가 많으니 (+인스턴스를 계속 만들 수 있으니) MicroService를 랜덤포트로 적용하고 LB를 이용해 Application name으로 접근하도록 한다.
+
+# PJT Service 정리
+
+|      구성요소      | 설명                                           |
+| :----------------: | :--------------------------------------------- |
+|   Git Repository   | 마이크로서비스 소스 관리 및 프로파일 관리      |
+|   Config Server    | Git 저장소에 등록된 프로파일 정보 및 설정 정보 |
+|   Eureka Server    | 마이크로서비스 등록 및 검색                    |
+| API Gateway Server | 마이크로서비스 부하 분산 및 서비스 라우팅      |
+|   Microservices    | 회원 MS, 주문 MS, 상품(카데고리)MS             |
+|   Queuing System   | 마이크로서비스 간 메시지 발행 및 구독          |
+
+# 애플리케이션 APIs
+
+| 마이크로서비스  | Restful API                                                | HTTP Method |
+| :-------------: | :--------------------------------------------------------- | :---------: |
+| Catalog Service | /catalog-service/catalogs: 상품 목록 제공                  |     GET     |
+|  User Service   | /user-service/users: 사용자 정보 등록                      |    POST     |
+|  User Service   | /user-service/users: 전체 사용자 조회                      |     GET     |
+|  User Service   | /user-service/users/{user_id}: 사용자 정보, 주문 내역 조회 |     GET     |
+|  Order Service  | /order-service/users/{user_id}/orders: 주문 등록           |    POST     |
+|  Order Service  | /order-service/users/{user_id}/orders: 주문 조회           |     GET     |
+
+# User-Service
+
+| 기능                        | URI(API Gateway 사용 시)         | URI(API Gateway 미사용 시) | HTTP Method |
+| :-------------------------- | :------------------------------- | :------------------------- | :---------: |
+| 사용자 정보 등록            | /user-service/users              | /users                     |    POST     |
+| 전체 사용자 조회            | /user-service/users              | /users                     |     GET     |
+| 사용자 정보, 주문 내역 조회 | /user-service/users/{user_id}    | /users/{user_id}           |     GET     |
+| 작동 상태 확인              | /user-service/users/health_check | /users/health_check        |     GET     |
+| 환영 메시지                 | /user-service/users/welcome      | /users/welcome             |     GET     |
+| 로그인                      | /user-service/login              | /login                     |    POST     |
+
+# Cataologs-Service
+
+| 기능                     | URI(API Gateway 사용 시) | URI(API Gateway 미사용 시)      | HTTP Method |
+| :----------------------- | :----------------------- | :------------------------------ | :---------: |
+| 상품 목록 조회           | Catalogs Microservice    | /catalog-service/catalogs       |     GET     |
+| 사용자 별 상품 주문      | Order Microservice       | /order-service/{user_id}/orders |    POST     |
+| 사용자 별 주문 내역 조회 | Orders Microservice      | /order-service/{user_id}/orders |     GET     |
