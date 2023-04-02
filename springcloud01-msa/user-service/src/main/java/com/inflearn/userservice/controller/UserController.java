@@ -1,27 +1,29 @@
 package com.inflearn.userservice.controller;
 
+import com.inflearn.userservice.dto.UserDto;
+import com.inflearn.userservice.service.UserService;
 import com.inflearn.userservice.vo.Greeting;
+import com.inflearn.userservice.vo.RequestUser;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
 public class UserController {
     // application.yml 값을 불러오는 방법 2가지
-
-    // 방법1) Environment
-    private Environment env;
-
-    // 방법2) @Value
+    private Environment env; // 방법1) Environment
     @Autowired
-    private Greeting greeting;
+    private Greeting greeting; // 방법2) @Value
+
+    private UserService userService;
 
     @Autowired
-    public UserController(Environment env) {
+    public UserController(Environment env, UserService userService){
         this.env = env;
+        this.userService = userService;
     }
 
     @GetMapping("/health_check")
@@ -32,5 +34,16 @@ public class UserController {
     @GetMapping("/welcome")
     public String welcome(){
         return env.getProperty("greeting.message") + " /// " + greeting.getMessage();
+    }
+
+    @PostMapping("/users")
+    public String createUser(@RequestBody RequestUser user){
+        ModelMapper mapper = new ModelMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        UserDto userDto = mapper.map(user, UserDto.class);
+        userService.createUser(userDto);
+
+        return "Create user method is called";
     }
 }
