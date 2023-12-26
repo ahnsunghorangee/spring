@@ -104,6 +104,12 @@ or
 
 apigateway-service를 실행하면 Netty라는 비동기 내장서버가 작동한다. (이전에는 tomcat)
 
+- API Gateway는 Spring의 HTTP Servlet Request/Response같은 MVC로 구성된 것이 아니라 Spring의 WebFlux라고해서 Functional API를 비동기방식으로 데이터를 처리한다.
+  - WebFlux에서 처리하는 단위 (=데이터 타입)
+    - Mono(= 단일값): 우리가 전달하고자 하는 데이터를 넣어서 반환할 수 있다.
+    - Flux(= 단일값 아닌 경우)
+  - Webflux는 Spring5.0에 추가됨
+
 Zuul과 다른점
 
 | 요청URL                                     | first-service Controller          | zuul-service | apigateway-service |
@@ -357,3 +363,17 @@ eureka:
 | 상품 목록 조회           | Catalogs Microservice    | /catalog-service/catalogs       |     GET     |
 | 사용자 별 상품 주문      | Order Microservice       | /order-service/{user_id}/orders |    POST     |
 | 사용자 별 주문 내역 조회 | Orders Microservice      | /order-service/{user_id}/orders |     GET     |
+
+# Jar vs War
+
+- Java명령어로 스프링부트 내장 톰켓 서버가 작동하면서 스프링 부트 기동
+- War는 내장 톰캣이 없어서 외부 WAS에 마이크로서비스를 배포해야한다.
+
+# Spring Security
+
+- Authentication (인증)
+- Authorization (권한)
+
+- 처리 절차
+
+  - Step1: 애플리케이션에 spring security jar을 dependency에 추가

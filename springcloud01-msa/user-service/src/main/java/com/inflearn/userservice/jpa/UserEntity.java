@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name="users")
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동으로 생성(자동으로 생성되는 전략)
     private Long id;
     @Column(nullable = false, length = 50, unique = true)
     private String email;

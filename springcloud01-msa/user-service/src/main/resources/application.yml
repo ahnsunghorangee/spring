@@ -4,18 +4,26 @@ server:
 spring:
   application:
     name: user-service
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true # 외부 접속 허용
-      path: /h2-console
-    datasource:
-      driver-class-name: org.h2.Driver
-      url: jdbc:h2:tcp://localhost/mem:testdb # h2 console 위치
-      username: sa
-    jpa:
-      generate-ddl: true
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true # 외부 접속 허용
+#      path: /h2-console
+  datasource: # 테이블 자동 생성할 때 필요
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/inflearn?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8
+    username: root
+    password: Sh95923517!@#
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
 
 eureka:
   instance:
@@ -29,3 +37,14 @@ eureka:
 
 greeting:
   message: Welcome to the Simple E-commerce.
+
+logging:
+  level:
+    com.inflearn.userservice: DEBUG
+
+# actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,beans

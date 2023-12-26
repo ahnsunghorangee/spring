@@ -2,8 +2,10 @@ package com.inflearn.apigatewayservice.filter;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,9 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
         super(Config.class);
     }
 
+    @Autowired
+    Environment env;
+
     @Override
     public GatewayFilter apply(Config config) { // 작업할 내용
         // Global Pre Filter
@@ -24,6 +29,8 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
             ServerHttpResponse response = exchange.getResponse();
 
             log.info("Global Filter baseMessage : {}", config.getBaseMessage());
+            log.info("spring.cloud.client.hostname={}", env.getProperty("spring.cloud.client.hostname"));
+            log.info("spring.cloud.client.ip-address={}", env.getProperty("spring.cloud.client.ip-address"));
 
             if(config.isPreLogger()){ // Pre Logger가 작동되어야 한다면
                 log.info("Global Filter Start : request id -> {}", request.getId());
