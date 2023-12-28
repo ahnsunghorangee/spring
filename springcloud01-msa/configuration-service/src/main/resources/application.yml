@@ -4,9 +4,15 @@ server:
 spring:
   application:
     name: configuration-service
+  profiles:
+    active: native
   cloud:
     config:
       server:
+        native:
+          search-locations: file:///d:/study/spring/springcloud01-msa/_config/native-file-repo
         git:
           default-label: master # default branch 설정
-          uri: file://d:\\study\spring\springcloud01-msa\_config\config
+#          uri: file://d:\\study\spring\springcloud01-msa\_config\local-git-repo
+          uri: https://github.com/ahnsunghorangee/config
+          # git private repository인 경우 username, password 작성 필요
