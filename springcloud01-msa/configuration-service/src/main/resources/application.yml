@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: configuration-service
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   profiles:
     active: native
   cloud:
@@ -16,3 +21,9 @@ spring:
 #          uri: file://d:\\study\spring\springcloud01-msa\_config\local-git-repo
           uri: https://github.com/ahnsunghorangee/config
           # git private repository인 경우 username, password 작성 필요
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,busrefresh
