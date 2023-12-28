@@ -1,3 +1,10 @@
+spring:
+  datasource: # 테이블 자동 생성할 때 필요
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/inflearn?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8
+    username: root
+    password: "{cipher}52db883b6d97f0797026a345e4f1ab45731e2a72bae78ff6e6795554bf8990f1"
+
 token:
   expiration_time: 86400000
   secret: user_token_native_user-service

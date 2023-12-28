@@ -15,11 +15,11 @@ spring:
 #      settings:
 #        web-allow-others: true # 외부 접속 허용
 #      path: /h2-console
-  datasource: # 테이블 자동 생성할 때 필요
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/inflearn?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8
-    username: root
-    password: Sh95923517!@#
+#  datasource: # 테이블 자동 생성할 때 필요
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/inflearn?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8
+#    username: root
+#    password: Sh95923517!@#
   jpa:
     database: mysql
     show-sql: true

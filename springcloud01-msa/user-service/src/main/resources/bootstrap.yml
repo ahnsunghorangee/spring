@@ -4,7 +4,7 @@ spring:
   cloud:
     config:
       uri: http://127.0.0.1:8888
-      name: configuration-service # 읽어오고자 하는 yml 파일 이름 (default는 application.yml)
+      name: user-service # 읽어오고자 하는 yml 파일 이름 (default는 application.yml)
       # application 이름을 작성하면 (ex. configuration-service) 해당 서비스와 동일한 application.yml을 불러온다.
 #  profiles:
 #    active: dev
