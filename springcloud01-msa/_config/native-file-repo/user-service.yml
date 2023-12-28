@@ -3,11 +3,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/inflearn?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8
     username: root
-    password: "{cipher}52db883b6d97f0797026a345e4f1ab45731e2a72bae78ff6e6795554bf8990f1"
+    password: "{cipher}AQAXJBErKypA0hcDjENFP7VOD7fmEMi3RNNt+MKfpRW/F8dGE3lcpLJnw3l0CaSmZ6H2VNNejgcV9HuRYUvUGAXO0Wls9NyP70q9B+b7Q39EQBVR8lgsQBerCaC3N3zSmoyNLGF2+gQIfMOQg8Z9d0D4vkWqE+Rkf7hx8k0rCJyvLSb1/TRF+R2eO8sSYSafnP6DDW169b50RdpI8nrixDj9jRi2MoTMVXpi6fKDzq4mvm3MDGJd3I3AXS2k8MIeHHNmqOFZIQbIBw+c5tNQkKRkuxZx7HTMA/CR4N0jgoRPwQrLp86+68r6i+KND2UKr8CcJMYRnFUQEVKo3O05OPDPLEiY8RcCALLPNBcytHiOEIDZI8JDyQAaE7JCeTkD+FI="
 
 token:
   expiration_time: 86400000
-  secret: user_token_native_user-service
+  secret: "{cipher}AQCHgaY5jHZy3XZl9eVpflyeCpiZaaX0p7kGFSKibXFiECx6Yovk5a8y3/HCuNMDLuRBbmDbsr7YhCqhYK4MQFKwyeBsSH3e9Su6tha2d+rCzqBksl+XfKg2Efm/x1IXh8nrfMCDElnLD4UskPowYPs8xvfp0FdYrAU8EWMqrl5vZYNOvkemkv+wiOYpotQzOb34waF10BiLZtWcs7l2tZFPv1c3K+ecHUG3Mfzd+Noft9Ufr2IrOBsBqXzBzGjLpIC1SSr/O6Wf6ZE+Lp9kowjHw8AMZ6tEkXoKZ7ePyZh9CdBwQ2J5FZ+HHSwMWtJ0bBRx/QVnrt01fA36sjy/4O7etu9or+/6+9R8HbcQxoaIrbONM0T6X5VP1UmDH6Ne6V3DTrPlLMdVh7uWYuHw2Zeu"
 
 gateway:
   ip: 127.0.0.1

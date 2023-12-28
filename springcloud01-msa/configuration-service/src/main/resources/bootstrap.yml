@@ -1,2 +1,6 @@
 encrypt:
-  key: abcdefghijklmnopqrstuvwxyz0123456789 # encrypt.key: 대칭키로 쓰겠다는 의미
+#  key: abcdefghijklmnopqrstuvwxyz0123456789 # encrypt.key: 대칭키로 쓰겠다는 의미
+  key-store:
+    location: file:///d:/study/_config/keystore/apiEncryptionKey.jks
+    password: test1234
+    alias: apiEncryptionKey
