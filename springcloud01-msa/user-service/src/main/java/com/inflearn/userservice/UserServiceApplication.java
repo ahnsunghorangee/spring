@@ -1,5 +1,7 @@
 package com.inflearn.userservice;
 
+import com.inflearn.userservice.error.FeignErrorDecoder;
+import feign.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -28,4 +30,15 @@ public class UserServiceApplication {
 	public RestTemplate getRestTemplate(){
 		return new RestTemplate();
 	}
+
+	@Bean
+	public Logger.Level feignLoggerLevel (){
+		return Logger.Level.FULL;
+	}
+
+	/* FeignErrorDecoder가 @Component로 등록됨으로서 필요없어짐 */
+//	@Bean
+//	public FeignErrorDecoder getFeignErrorDecoder(){
+//		return new FeignErrorDecoder();
+//	}
 }

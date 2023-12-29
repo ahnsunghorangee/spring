@@ -45,7 +45,7 @@ greeting:
 
 logging:
   level:
-    com.inflearn.userservice: DEBUG
+    com.inflearn.userservice.client: DEBUG
 
 # actuator
 management:

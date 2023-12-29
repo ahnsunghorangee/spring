@@ -10,6 +10,6 @@ import java.util.List;
 @FeignClient(name="order-service") // 호출하는 마이크로서비스 이름
 public interface OrderServiceClient {
 
-    @GetMapping("/order-service/{userId}/orders") // 마이크로서비스 URI
+    @GetMapping("/order-service/{userId}/orders_ng") // 마이크로서비스 URI
     List<ResponseOrder> getOrders(@PathVariable String userId);
 }
