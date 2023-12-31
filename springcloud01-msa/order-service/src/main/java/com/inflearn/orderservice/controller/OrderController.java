@@ -2,6 +2,7 @@ package com.inflearn.orderservice.controller;
 
 import com.inflearn.orderservice.dto.OrderDto;
 import com.inflearn.orderservice.jpa.OrderEntity;
+import com.inflearn.orderservice.messagequeue.KafkaProducer;
 import com.inflearn.orderservice.service.OrderService;
 import com.inflearn.orderservice.vo.RequestOrder;
 import com.inflearn.orderservice.vo.ResponseOrder;
@@ -20,10 +21,12 @@ import java.util.List;
 public class OrderController {
 
     OrderService orderService;
+    KafkaProducer kafkaProducer;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, KafkaProducer kafkaProducer) {
         this.orderService = orderService;
+        this.kafkaProducer = kafkaProducer;
     }
 
     @PostMapping("/{userId}/orders")
@@ -31,10 +34,16 @@ public class OrderController {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
+        /* JPA */
         OrderDto orderDto = modelMapper.map(orderDetails, OrderDto.class);
         orderDto.setUserId(userId);
         OrderDto createDto = orderService.createOrder(orderDto);
+
         ResponseOrder returnValue = modelMapper.map(createDto, ResponseOrder.class);
+
+        /* send this order to the kafka */
+        kafkaProducer.send("example-catalog-topic", orderDto);
+
 
         return ResponseEntity.status(HttpStatus.CREATED).body(returnValue);
     }
