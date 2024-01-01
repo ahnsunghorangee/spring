@@ -100,7 +100,8 @@ public class UserServiceImpl implements UserService {
 //        userDto.setOrders(ordersList);
 
         /* Feign Error Decoder handling */
-        List<ResponseOrder> ordersList = orderServiceClient.getOrders(userId);;
+        List<ResponseOrder> ordersList = orderServiceClient.getOrders(userId);
+        userDto.setOrders(ordersList);
 
         return userDto;
     }
