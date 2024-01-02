@@ -6,6 +6,7 @@ import com.inflearn.userservice.service.UserService;
 import com.inflearn.userservice.vo.Greeting;
 import com.inflearn.userservice.vo.RequestUser;
 import com.inflearn.userservice.vo.ResponseUser;
+import io.micrometer.core.annotation.Timed;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -37,6 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/health_check")
+    @Timed(value="users.status", longTask = true)
     public String status(){
         return String.format("It's Working in User Service"
                 + ", port(local.server.port)= " + env.getProperty("local.server.port")
@@ -46,6 +48,7 @@ public class UserController {
     }
 
     @GetMapping("/welcome")
+    @Timed(value="users.welcome", longTask = true)
     public String welcome(){
         log.info("spring.cloud.client.hostname={}", env.getProperty("spring.cloud.client.hostname"));
         log.info("spring.cloud.client.ip-address={}", env.getProperty("spring.cloud.client.ip-address"));

@@ -75,6 +75,18 @@
 			<artifactId>spring-cloud-starter-zipkin</artifactId>
 			<version>2.2.3.RELEASE</version>
 		</dependency>
+
+		<!-- Config Server 와 연동하기 위함, Actuator (서버 재기동 x) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<!-- micrometer -->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
