@@ -109,10 +109,12 @@ public class UserServiceImpl implements UserService {
 //        userDto.setOrders(ordersList);
 
         /* Resilience4J */
+        log.info("Before call orders microservice");
         CircuitBreaker circuitBreaker = circuitBreakerFactory.create("circuitbreaker");
         List<ResponseOrder> ordersList = circuitBreaker.run(() -> orderServiceClient.getOrders(userId), // 메서드를 실행시키는데,
                 throwable -> new ArrayList<>() // 오류가 날 경우 빈 리스트 return
         );
+        log.info("After call orders microservice");
 
         userDto.setOrders(ordersList);
 
