@@ -4,12 +4,6 @@ server:
 spring:
   application:
     name: order-service
-  zipkin:
-    base-url: http://127.0.0.1:9411
-    enabled: true
-  sleuth:
-    sampler:
-      probability: 1.0
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/inflearn?serverTimezone=UTC&useUnicode=yes&characterEncoding=UTF-8
